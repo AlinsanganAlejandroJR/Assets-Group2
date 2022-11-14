@@ -9,6 +9,5 @@ public class ProductTypes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
+    private String productTypeName;
 }
