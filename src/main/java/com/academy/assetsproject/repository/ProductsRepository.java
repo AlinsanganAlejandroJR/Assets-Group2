@@ -1,4 +1,4 @@
-package com.academy.assetsproject.Repository;
+package com.academy.assetsproject.repository;
 
 import com.academy.assetsproject.models.Products;
 import org.springframework.data.repository.PagingAndSortingRepository;

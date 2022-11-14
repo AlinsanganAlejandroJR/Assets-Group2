@@ -1,4 +1,4 @@
-package com.academy.assetsproject.Repository;
+package com.academy.assetsproject.repository;
 
 import com.academy.assetsproject.models.ProductTypes;
 import com.academy.assetsproject.models.Products;
@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface ProductTypesRepository extends PagingAndSortingRepository<ProductTypes, Long> {
-    Page<ProductTypes> findByProduct(Products products, Pageable pageable);
+    //Page<ProductTypes> findByProduct(Products products, Pageable pageable);
 }
