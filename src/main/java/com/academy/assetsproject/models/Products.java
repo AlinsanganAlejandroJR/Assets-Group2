@@ -13,8 +13,8 @@ public class Products {
     @Column
     private double price;
     @Column
-    private LocalDate dateOfPurchase;
-    public Products(Long id, String name, double price, LocalDate dateOfPurchase) {
+    private String dateOfPurchase;
+    public Products(Long id, String name, double price, String dateOfPurchase) {
         Id = id;
         this.name = name;
         this.price = price;
@@ -47,11 +47,11 @@ public class Products {
         this.price = price;
     }
 
-    public LocalDate getDateOfPurchase() {
+    public String getDateOfPurchase() {
         return dateOfPurchase;
     }
 
-    public void setDateOfPurchase(LocalDate dateOfPurchase) {
+    public void setDateOfPurchase(String dateOfPurchase) {
         this.dateOfPurchase = dateOfPurchase;
     }
 
