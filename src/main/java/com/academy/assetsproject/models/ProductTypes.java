@@ -15,6 +15,9 @@ public class ProductTypes {
     private String productTypeName;
 
 
+    public ProductTypes() {
+    }
+
     public ProductTypes(Long id, String productTypeName) {
         this.id = id;
         this.productTypeName = productTypeName;

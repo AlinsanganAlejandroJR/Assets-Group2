@@ -18,6 +18,9 @@ public class Products {
     @Column
     private LocalDate dateOfPurchase;
 
+    public Products() {
+    }
+
     public Products(Long id, String name, double price, LocalDate dateOfPurchase) {
         Id = id;
         this.name = name;
