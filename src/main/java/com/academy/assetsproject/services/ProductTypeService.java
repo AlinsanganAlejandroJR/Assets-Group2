@@ -6,6 +6,7 @@ import com.academy.assetsproject.exception.RecordNotFoundException;
 import org.springframework.data.domain.Pageable;
 
 public interface ProductTypeService {
+    ProductTypes saveProductType(ProductTypes productTypes);
     Page<ProductTypes> findByProductTypes(ProductTypes productTypes, Pageable pageable);
     Page<ProductTypes> findAllProductTypes(Pageable pageable);
     ProductTypes findProductTypesById(Long id)throws RecordNotFoundException;
