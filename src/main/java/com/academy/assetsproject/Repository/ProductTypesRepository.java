@@ -1,6 +1,5 @@
 package com.academy.assetsproject.repository;
 
-
 import com.academy.assetsproject.models.ProductTypes;
 import com.academy.assetsproject.models.Products;
 import org.springframework.data.domain.Page;
