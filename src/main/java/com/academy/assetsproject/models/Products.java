@@ -8,21 +8,19 @@ public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-
     @Column
     private String name;
-
     @Column
     private double price;
-
     @Column
     private LocalDate dateOfPurchase;
-
     public Products(Long id, String name, double price, LocalDate dateOfPurchase) {
         Id = id;
         this.name = name;
         this.price = price;
         this.dateOfPurchase = dateOfPurchase;
+    }
+    public Products() {
     }
 
     public Long getId() {
