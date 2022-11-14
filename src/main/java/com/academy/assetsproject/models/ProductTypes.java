@@ -10,5 +10,4 @@ public class ProductTypes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String productTypeName;
-    private Products productsroduct;
 }
