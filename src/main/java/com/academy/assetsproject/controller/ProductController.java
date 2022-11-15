@@ -20,17 +20,14 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping
-    public ResponseEntity<Page<Products>> getAllProducts(Pageable pageable){
+    public ResponseEntity<Page<Products>> getAllProducts(Pageable pageable) throws RecordNotFoundException{
         Page<Products> products = productService.findAllProducts(pageable);
         return new ResponseEntity<Page<Products>>(products, HttpStatus.OK);
     }
     @GetMapping("/{id}")
-    public List<Products> findProductById(@PathVariable Long id)throws RecordNotFoundException {
-        return productService.findByProductById(id);
-    }
-    @DeleteMapping("/{id}")
-    public void deleteProducts(@PathVariable Long id)throws RecordNotFoundException{
-        //productService.deleteProducts(id);
+    public ResponseEntity<List<Products>> findProductById(@PathVariable Long id)throws RecordNotFoundException {
+        List<Products> products = productService.findByProductById(id);
+        return new ResponseEntity<List<Products>>(products, HttpStatus.OK);
     }
 
     @PostMapping
@@ -41,6 +38,11 @@ public class ProductController {
     @PutMapping("/{Id}")
     private Products updateProduct(@RequestBody Products products, @PathVariable Long Id) throws RecordNotFoundException {
         return productService.updateProducts(products, Id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProducts(@PathVariable Long id)throws RecordNotFoundException{
+        productService.deleteProducts(id);
     }
 
 

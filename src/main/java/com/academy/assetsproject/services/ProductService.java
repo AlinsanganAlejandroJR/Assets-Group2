@@ -8,10 +8,12 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ProductService {
-    Page<Products> findAllProducts(Pageable pageable);
-    Products saveProducts(Products products);
+    Page<Products> findAllProducts(Pageable pageable) throws RecordNotFoundException;
     List<Products> findByProductById(Long id)throws RecordNotFoundException;
+    Products findByCategory(String types);
+    Products saveProducts(Products products);
+
     Products updateProducts (Products updateProducts, Long id)throws RecordNotFoundException;
-    void deleteProducts(Long id, Pageable pageable)throws RecordNotFoundException;
+    void deleteProducts(Long id)throws RecordNotFoundException;
 
 }
