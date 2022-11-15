@@ -1,13 +1,11 @@
 package com.academy.assetsproject.controller;
 
+import com.academy.assetsproject.exception.RecordNotFoundException;
 import com.academy.assetsproject.models.Products;
 import com.academy.assetsproject.repository.ProductRepository;
 import com.academy.assetsproject.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/product")
@@ -20,4 +18,11 @@ public class ProductController {
     public Products saveProduct(@RequestBody Products products){
         return productService.saveProducts(products);
     }
+
+    @PutMapping("/{Id}")
+    private Products updateProduct(@RequestBody Products products, @PathVariable Long Id) throws RecordNotFoundException {
+        return productService.updateProducts(products, Id);
+    }
+
+
 }
