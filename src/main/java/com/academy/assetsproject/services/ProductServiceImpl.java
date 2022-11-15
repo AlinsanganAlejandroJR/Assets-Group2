@@ -20,7 +20,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Page<Products> findAllProducts(Pageable pageable) {
-        return null;
+        return repo.findAll(pageable);
     }
 
     @Override
