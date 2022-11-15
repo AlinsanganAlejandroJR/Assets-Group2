@@ -1,67 +1,34 @@
 package com.academy.assetsproject.models;
 
+import com.academy.assetsproject.enums.Types;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+
     @Column
     private String name;
+
     @Column
     private double price;
+
     @Column
-    private String dateOfPurchase;
-    public Products(Long id, String name, double price, String dateOfPurchase) {
-        Id = id;
-        this.name = name;
-        this.price = price;
-        this.dateOfPurchase = dateOfPurchase;
-    }
-    public Products() {
-    }
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate dateOfPurchase;
 
-    public Long getId() {
-        return Id;
-    }
+    @Enumerated(value = EnumType.STRING)
+    private Types type;
 
-    public void setId(Long id) {
-        Id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public String getDateOfPurchase() {
-        return dateOfPurchase;
-    }
-
-    public void setDateOfPurchase(String dateOfPurchase) {
-        this.dateOfPurchase = dateOfPurchase;
-    }
-
-    @Override
-    public String toString() {
-        return "Products{" +
-                "Id=" + Id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", dateOfPurchase=" + dateOfPurchase +
-                '}';
-    }
 }
