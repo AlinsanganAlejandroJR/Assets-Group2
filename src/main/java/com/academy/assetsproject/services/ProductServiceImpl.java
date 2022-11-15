@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
     Logger logger = Logger.getLogger("com.api.jar");
     @Autowired
     private ProductRepository repo;
@@ -32,25 +32,22 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public List<Products> findByProductById(Long id) throws RecordNotFoundException {
         Optional<Products> productsOptional = repo.findById(id);
-        if (productsOptional.isPresent()){
-            return repo.findById(id).stream().filter(products -> products.getId()==id)
+        if (productsOptional.isPresent()) {
+            return repo.findById(id).stream().filter(products -> products.getId() == id)
                     .collect(Collectors.toList());
-        }else throw new RecordNotFoundException("RECORD NOT FOUND");
+        } else throw new RecordNotFoundException("RECORD NOT FOUND");
     }
 
     @Override
     public Products updateProducts(Products updateProducts, Long id) throws RecordNotFoundException {
-        return null;
+       return null;
     }
-
-//    @Override
-//    public void deleteProducts(Long id) throws RecordNotFoundException {
-//    Optional<Products> products = repo.findById(id);
-//    if (products.isEmpty())throw new RecordNotFoundException("NO RECORD EXIST"); repo.delete(products.get());
-//    }
     @Override
-    public void deleteProducts(Long id) throws RecordNotFoundException{
-        List<Optional<Products>> productsOptional = repo.findById(id).map(products -> repo.findById(id)).stream().toList();
-        repo.delete((Products) productsOptional);
+    public void deleteProducts(Long id) throws RecordNotFoundException {
+        Optional<Products> products = repo.findById(id);
+        if (products.isEmpty()) {
+            repo.findById(id).stream().filter(products1 -> products1.getId() == id)
+                    .collect(Collectors.toList());
+        } else repo.delete(products.get());
     }
 }

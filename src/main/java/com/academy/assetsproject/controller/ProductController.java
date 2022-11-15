@@ -2,7 +2,6 @@ package com.academy.assetsproject.controller;
 
 import com.academy.assetsproject.exception.RecordNotFoundException;
 import com.academy.assetsproject.models.Products;
-import com.academy.assetsproject.repository.ProductRepository;
 import com.academy.assetsproject.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,10 +19,25 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @GetMapping
+    public ResponseEntity<Page<Products>> getAllProducts(Pageable pageable){
+        Page<Products> products = productService.findAllProducts(pageable);
+        return new ResponseEntity<Page<Products>>(products, HttpStatus.OK);
+    }
+    @GetMapping("/{id}")
+    public List<Products> findProductById(@PathVariable Long id)throws RecordNotFoundException {
+        return productService.findByProductById(id);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteProducts(@PathVariable Long id)throws RecordNotFoundException{
+        //productService.deleteProducts(id);
+    }
+
     @PostMapping
     public Products saveProduct(@RequestBody Products products){
         return productService.saveProducts(products);
     }
+<<<<<<< HEAD
     @GetMapping
     public ResponseEntity<Page<Products>> getAllProducts(Pageable pageable){
         Page<Products> products = productService.findAllProducts(pageable);
@@ -37,4 +51,13 @@ public class ProductController {
     public void deleteProducts(@PathVariable Long id)throws RecordNotFoundException{
         productService.deleteProducts(id);
     }
+=======
+
+    @PutMapping("/{Id}")
+    private Products updateProduct(@RequestBody Products products, @PathVariable Long Id) throws RecordNotFoundException {
+        return productService.updateProducts(products, Id);
+    }
+
+
+>>>>>>> origin/main
 }

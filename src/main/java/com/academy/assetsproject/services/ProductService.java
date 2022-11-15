@@ -4,11 +4,17 @@ import com.academy.assetsproject.models.Products;
 import com.academy.assetsproject.exception.RecordNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+<<<<<<< HEAD
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+=======
+
+import java.util.List;
+
+>>>>>>> origin/main
 public interface ProductService {
     Page<Products> findAllProducts(Pageable pageable);
     Products saveProducts(Products products);
