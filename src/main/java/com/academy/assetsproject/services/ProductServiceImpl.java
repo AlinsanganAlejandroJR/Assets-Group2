@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,11 +26,6 @@ public class ProductServiceImpl implements ProductService{
             throw new RecordNotFoundException("No Records");
         }
         return productsOptional;
-    }
-
-    @Override
-    public Products findByCategory(String types) {
-        return repo.findAll(Sort.by);
     }
 
     @Override
