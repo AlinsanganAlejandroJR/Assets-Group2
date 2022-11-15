@@ -29,6 +29,7 @@ public class Products {
     private LocalDate dateOfPurchase;
 
     @Enumerated(value = EnumType.STRING)
+    @Column
     private Types type;
 
 }
