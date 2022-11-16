@@ -1,6 +1,6 @@
 package com.academy.assetsproject.models;
 
-import com.academy.assetsproject.enums.Types;
+import com.academy.assetsproject.enums.CategoryType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,6 +30,6 @@ public class Products {
 
     @Enumerated(value = EnumType.STRING)
     @Column
-    private Types type;
+    private CategoryType type;
 
 }
