@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -22,14 +23,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Products> findAllProducts(Pageable pageable) throws RecordNotFoundException {
-       /* Page<Products> productsOptional = repo.findAll(pageable);
-        if (productsOptional.isEmpty()) {
-            throw new RecordNotFoundException("No Records");
-        }
-        return productsOptional;*/
         return repo.findAll(pageable);
     }
-
     @Override
     public Page<Products> findByCategory(CategoryType categoryType, Pageable product) throws RecordNotFoundException {
         List<Products> items = repo.findAll(product)
@@ -51,18 +46,15 @@ public class ProductServiceImpl implements ProductService {
         return repo.save(products);
     }
 
-    public Products updateProducts (Products updateProducts, Long id) throws RecordNotFoundException {
-        Optional<Products> productsOptional = repo.findById(id);
-            if (productsOptional.isPresent()) {
-                productsOptional.get().setName(updateProducts.getName());
-                productsOptional.get().setType(updateProducts.getType());
-                productsOptional.get().setPrice(updateProducts.getPrice());
-                productsOptional.get().setDateOfPurchase(updateProducts.getDateOfPurchase());
-                return repo.save(productsOptional.get());
-            } else {
-                throw new RecordNotFoundException("Product not found");
-            }
 
+    public Products updateProducts(Products updateProducts, Long id) throws RecordNotFoundException{
+        return repo.findById(id).map(products -> {
+            products.setName(updateProducts.getName());
+            products.setType(updateProducts.getType());
+            products.setPrice(updateProducts.getPrice());
+            products.setDateOfPurchase(updateProducts.getDateOfPurchase());
+            return repo.save(products);
+        }).orElseThrow(() -> new RecordNotFoundException("NOT FOUND"));
     }
     @Override
     public void deleteProducts (Long id) throws RecordNotFoundException {
