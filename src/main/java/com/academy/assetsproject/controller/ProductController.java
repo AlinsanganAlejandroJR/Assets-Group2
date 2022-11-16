@@ -1,5 +1,6 @@
 package com.academy.assetsproject.controller;
 
+import com.academy.assetsproject.enums.CategoryType;
 import com.academy.assetsproject.exception.RecordNotFoundException;
 import com.academy.assetsproject.models.Products;
 import com.academy.assetsproject.services.ProductService;
@@ -29,6 +30,11 @@ public class ProductController {
         List<Products> products = productService.findByProductById(id);
         return new ResponseEntity<List<Products>>(products, HttpStatus.OK);
     }
+    @GetMapping("/category/{categoryType}")
+    public ResponseEntity<Page<Products>> findByCategory(@PathVariable CategoryType categoryType, Pageable pageable) throws RecordNotFoundException {
+        Page<Products> products = productService.findByCategory(categoryType, pageable);
+        return new ResponseEntity<Page<Products>>(products, HttpStatus.OK);
+    }
 
     @PostMapping
     public Products saveProduct(@RequestBody Products products){
@@ -44,6 +50,5 @@ public class ProductController {
     public void deleteProducts(@PathVariable Long id)throws RecordNotFoundException{
         productService.deleteProducts(id);
     }
-
 
 }

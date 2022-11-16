@@ -1,5 +1,5 @@
 package com.academy.assetsproject.enums;
 
-public enum Types {
+public enum CategoryType {
     FURNITURE,OFFICE_SUPPLIES
 }
