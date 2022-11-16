@@ -33,15 +33,12 @@ public class ProductServiceTest {
     @InjectMocks
     private ProductServiceImpl productService = new ProductServiceImpl();
 
-   /* @InjectMocks
-    private ProductService productService;*/
 
     Products furniture1 = new Products(1L, "Furniture1", 100, LocalDate.now(), CategoryType.FURNITURE);
     Products furniture2 = new Products(2L, "Furniture1", 200, LocalDate.now(), CategoryType.FURNITURE);
     Products officeSupplies1 = new Products(3L, "OfficeSupplies1", 300, LocalDate.now(), CategoryType.OFFICE_SUPPLIES);
     Products officeSupplies2 = new Products(4L, "OfficeSupplies2", 400, LocalDate.now(), CategoryType.OFFICE_SUPPLIES);
     List<Products> products =  List.of(furniture1,furniture2,officeSupplies1,officeSupplies2);
-
     Pageable pageable1 = PageRequest.of(0,20);
     Page<Products> productsList = new PageImpl<>(products,pageable1,products.size());
 
@@ -80,6 +77,10 @@ public class ProductServiceTest {
             "THEN result should save data")
     void testSaveProduct() throws RecordNotFoundException {
         //ali
+        //arrange
+        List<Products> expectedProducts = List.of(furniture1,furniture2);
+        //act
+        //productService.saveProducts(new Products())
     }
 
     @Test
