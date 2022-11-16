@@ -16,12 +16,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
-
     @Autowired
     private ProductService productService;
 
     @GetMapping
-    public ResponseEntity<Page<Products>> getAllProducts(Pageable pageable) throws RecordNotFoundException{
+    public ResponseEntity<Page<Products>> findAllProducts(Pageable pageable) throws RecordNotFoundException{
         Page<Products> products = productService.findAllProducts(pageable);
         return new ResponseEntity<Page<Products>>(products, HttpStatus.OK);
     }
@@ -29,14 +28,12 @@ public class ProductController {
     public ResponseEntity<List<Products>> findProductById(@PathVariable Long id)throws RecordNotFoundException {
         List<Products> products = productService.findByProductById(id);
         return new ResponseEntity<List<Products>>(products, HttpStatus.OK);
-
     }
     @GetMapping("/category/{categoryType}")
     public ResponseEntity<Page<Products>> findByCategory(@PathVariable CategoryType categoryType, Pageable pageable) throws RecordNotFoundException {
         Page<Products> products = productService.findByCategory(categoryType, pageable);
         return new ResponseEntity<Page<Products>>(products, HttpStatus.OK);
     }
-
     @PostMapping
     public Products saveProduct(@RequestBody Products products){
         return productService.saveProducts(products);
@@ -46,10 +43,8 @@ public class ProductController {
     private Products updateProduct(@RequestBody Products products, @PathVariable Long Id) throws RecordNotFoundException {
         return productService.updateProducts(products, Id);
     }
-
     @DeleteMapping("/{id}")
     public void deleteProducts(@PathVariable Long id)throws RecordNotFoundException{
         productService.deleteProducts(id);
     }
-
 }
