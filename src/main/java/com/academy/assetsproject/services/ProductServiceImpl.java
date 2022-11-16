@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,25 +37,21 @@ public class ProductServiceImpl implements ProductService{
                 .filter(products -> products.getType().equals(categoryType)).toList();
         return new PageImpl<>(items);
         //return repo.findByType(types, pageable);
-    }
 
-    @Override
     public List<Products> findByProductById(Long id) throws RecordNotFoundException {
         Optional<Products> productsOptional = repo.findById(id);
         if (productsOptional.isPresent()) {
             return repo.findById(id).stream().filter(products -> products.getId() == id)
                     .collect(Collectors.toList());
         } else throw new RecordNotFoundException("RECORD NOT FOUND");
+
     }
-
-
-
-    @Override
+  
     public Products saveProducts(Products products) {
         return repo.save(products);
+
     }
 
-    @Override
     public Products updateProducts(Products updateProducts, Long id) throws RecordNotFoundException {
         Optional<Products> productsOptional = repo.findById(id);
         if(productsOptional.isPresent()){

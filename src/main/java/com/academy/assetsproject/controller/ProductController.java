@@ -29,6 +29,7 @@ public class ProductController {
     public ResponseEntity<List<Products>> findProductById(@PathVariable Long id)throws RecordNotFoundException {
         List<Products> products = productService.findByProductById(id);
         return new ResponseEntity<List<Products>>(products, HttpStatus.OK);
+
     }
     @GetMapping("/category/{categoryType}")
     public ResponseEntity<Page<Products>> findByCategory(@PathVariable CategoryType categoryType, Pageable pageable) throws RecordNotFoundException {
