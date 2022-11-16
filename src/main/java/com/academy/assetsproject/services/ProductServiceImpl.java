@@ -23,6 +23,13 @@ public class ProductServiceImpl implements ProductService {
     public Page<Products> findAllProducts(Pageable pageable) {
         return repo.findAll(pageable);
     }
+/*
+
+    @Override
+    public Page<Products> findByCategory(Pageable pageable, String category) {
+        return null;
+    }
+*/
 
     @Override
     public Products saveProducts(Products products) {
@@ -50,4 +57,5 @@ public class ProductServiceImpl implements ProductService {
                     .collect(Collectors.toList());
         } else repo.delete(products.get());
     }
+
 }
