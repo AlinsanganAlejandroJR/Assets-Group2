@@ -16,15 +16,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductServiceImpl implements ProductService{
-
+public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository repo;
 
     @Override
-    public Page<Products> findAllProducts(Pageable pageable)throws RecordNotFoundException{
+    public Page<Products> findAllProducts(Pageable pageable) throws RecordNotFoundException {
         Page<Products> productsOptional = repo.findAll(pageable);
-        if (productsOptional.isEmpty()){
+        if (productsOptional.isEmpty()) {
             throw new RecordNotFoundException("No Records");
         }
         return productsOptional;
@@ -36,43 +35,42 @@ public class ProductServiceImpl implements ProductService{
                 .stream()
                 .filter(products -> products.getType().equals(categoryType)).toList();
         return new PageImpl<>(items);
-        //return repo.findByType(types, pageable);
-
-    public List<Products> findByProductById(Long id) throws RecordNotFoundException {
-        Optional<Products> productsOptional = repo.findById(id);
-        if (productsOptional.isPresent()) {
-            return repo.findById(id).stream().filter(products -> products.getId() == id)
-                    .collect(Collectors.toList());
-        } else throw new RecordNotFoundException("RECORD NOT FOUND");
-
-    }
-  
-    public Products saveProducts(Products products) {
-        return repo.save(products);
-
-    }
-
-    public Products updateProducts(Products updateProducts, Long id) throws RecordNotFoundException {
-        Optional<Products> productsOptional = repo.findById(id);
-        if(productsOptional.isPresent()){
-            Products entity = new Products();
-            entity.setId(updateProducts.getId());
-            entity.setName(updateProducts.getName());
-            entity.setType(updateProducts.getType());
-            entity.setPrice(updateProducts.getPrice());
-            entity.setDateOfPurchase(updateProducts.getDateOfPurchase());
-            return repo.save(entity);
-        }else{
-            throw new RecordNotFoundException("Product not found");
-        }
     }
 
     @Override
-    public void deleteProducts(Long id) throws RecordNotFoundException {
+    public List<Products> findByProductById (Long id) throws RecordNotFoundException {
+        Optional<Products> productsOptional = repo.findById(id);
+            if (productsOptional.isPresent()) {
+                return repo.findById(id).stream().filter(products -> products.getId() == id)
+                        .collect(Collectors.toList());
+            } else throw new RecordNotFoundException("RECORD NOT FOUND");
+    }
+    @Override
+    public Products saveProducts (Products products){
+        return repo.save(products);
+    }
+
+    public Products updateProducts (Products updateProducts, Long id) throws RecordNotFoundException {
+        Optional<Products> productsOptional = repo.findById(id);
+            if (productsOptional.isPresent()) {
+                Products entity = new Products();
+                entity.setId(updateProducts.getId());
+                entity.setName(updateProducts.getName());
+                entity.setType(updateProducts.getType());
+                entity.setPrice(updateProducts.getPrice());
+                entity.setDateOfPurchase(updateProducts.getDateOfPurchase());
+                return repo.save(entity);
+            } else {
+                throw new RecordNotFoundException("Product not found");
+            }
+
+    }
+    @Override
+    public void deleteProducts (Long id) throws RecordNotFoundException {
         Optional<Products> products = repo.findById(id);
         if (products.isEmpty()) {
-            repo.findById(id).stream().filter(products1 -> products1.getId() == id)
-                    .collect(Collectors.toList());
+            repo.findById(id).stream().filter(products1 -> products1.getId() == id);
         } else repo.delete(products.get());
     }
 }
+
