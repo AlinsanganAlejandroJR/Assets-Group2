@@ -21,8 +21,8 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository repo;
 
     @Override
-    public Page<Products> findAllProducts(Pageable pageable) throws RecordNotFoundException {
-        Page<Products> productsOptional = repo.findAll(pageable);
+    public Page<Products> findAllProducts(Pageable product) throws RecordNotFoundException {
+        Page<Products> productsOptional = repo.findAll(product);
         if (productsOptional.isEmpty()) {
             throw new RecordNotFoundException("No Records");
         }
@@ -30,8 +30,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Products> findByCategory(CategoryType categoryType, Pageable pageable) throws RecordNotFoundException {
-        List<Products> items = repo.findAll(pageable)
+    public Page<Products> findByCategory(CategoryType categoryType, Pageable product) throws RecordNotFoundException {
+        List<Products> items = repo.findAll(product)
                 .stream()
                 .filter(products -> products.getType().equals(categoryType)).toList();
         return new PageImpl<>(items);
