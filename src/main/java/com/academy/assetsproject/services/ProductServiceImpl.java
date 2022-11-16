@@ -21,12 +21,13 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository repo;
 
     @Override
-    public Page<Products> findAllProducts(Pageable product) throws RecordNotFoundException {
-        Page<Products> productsOptional = repo.findAll(product);
+    public Page<Products> findAllProducts(Pageable pageable) throws RecordNotFoundException {
+       /* Page<Products> productsOptional = repo.findAll(pageable);
         if (productsOptional.isEmpty()) {
             throw new RecordNotFoundException("No Records");
         }
-        return productsOptional;
+        return productsOptional;*/
+        return repo.findAll(pageable);
     }
 
     @Override
