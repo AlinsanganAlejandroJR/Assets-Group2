@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/product")
@@ -25,9 +26,9 @@ public class ProductController {
         return new ResponseEntity<Page<Products>>(products, HttpStatus.OK);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<List<Products>> findProductById(@PathVariable Long id)throws RecordNotFoundException {
-        List<Products> products = productService.findByProductById(id);
-        return new ResponseEntity<List<Products>>(products, HttpStatus.OK);
+    public ResponseEntity<Optional<Products>> findProductById(@PathVariable Long id)throws RecordNotFoundException {
+        Optional<Products> products = productService.findByProductById(id);
+        return new ResponseEntity<Optional<Products>>(products, HttpStatus.OK);
     }
     @GetMapping("/category/{categoryType}")
     public ResponseEntity<Page<Products>> findByCategory(@PathVariable CategoryType categoryType, Pageable pageable) throws RecordNotFoundException {
