@@ -13,10 +13,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service(value = "userService")
@@ -25,19 +23,20 @@ public class UserServiceImpl implements UserDetailsService {
     @Autowired
     private UserRepo repo;
 
-    /*private List<UserType> getAuthority(Users users){
-        List<UserType> roleByUserId = Collections.singletonList(users.getRole());
-        List<UserType> authorities = roleByUserId.stream().map(role -> new SimpleGrantedAuthority("ROLE_").t)
-        return roleByUserId;
-    }*/
+    private List<SimpleGrantedAuthority> getAuthority(Users User){
+        if(User.getRole().equals(UserType.ROLE_ADMIN)){
+            return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        }
+        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Users user = repo.findByUserName(username);
-        if(user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("Invalid User");
         }
         GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().name());
-        return new User(user.getUserName(),user.getPassword(), Arrays.asList(authority));
+        return new User(user.getUserName(), user.getPassword(), Arrays.asList(authority));
     }
 }
