@@ -1,5 +1,6 @@
 package com.academy.assetsproject.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import java.time.LocalDate;
 import java.util.Date;
 
 @MappedSuperclass
@@ -25,15 +27,16 @@ public class BaseAuditClass {
     private String createdBy;
 
     @CreatedDate
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "created_date")
     private Date createdDate;
 
-    @LastModifiedDate
+    @LastModifiedBy
     @Column(name = "last_modified_by")
     private String lastModifiedBy;
 
-    @LastModifiedBy
+    @LastModifiedDate
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "last_modified_date")
     private Date lastModifiedDate;
-
 }
