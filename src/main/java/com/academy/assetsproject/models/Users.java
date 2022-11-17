@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Users {
+public class Users extends BaseAuditClass{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
