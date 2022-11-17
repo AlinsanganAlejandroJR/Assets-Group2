@@ -17,7 +17,7 @@ import java.util.List;
 public class SwaggerConfiguration {
     public static final String AUTHORIZATION_HEADER = "Authorization";
     private ApiInfo apiInfo() {
-        return new ApiInfo("My REST API",
+        return new ApiInfo("ASSETS REST API",
                 "API.",
                 "1.0",
                 "Terms of service",
@@ -34,8 +34,7 @@ public class SwaggerConfiguration {
                 .securityContexts(Arrays.asList(securityContext()))
                 .securitySchemes(Arrays.asList(apiKey()))
                 .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.academy.assetsproject.controller"))
                 .build();
     }
 
