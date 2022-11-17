@@ -29,7 +29,7 @@ public class Products extends BaseAuditClass{
 
     @Column
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date dateOfPurchase;
+    private LocalDate dateOfPurchase;
 
     @Enumerated(value = EnumType.STRING)
     @Column
