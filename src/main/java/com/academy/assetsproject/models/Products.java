@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Products {
+public class Products extends BaseAuditClass{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
