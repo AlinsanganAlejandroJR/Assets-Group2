@@ -23,11 +23,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    public static final String ROLE_ADMIN = UserType.Constants.ADMIN_VALUE;
-    public static final String ROLE_USER = UserType.Constants.USER_VALUE;
-
     @GetMapping
-    @Secured(ROLE_USER)
     public ResponseEntity<Page<Products>> findAllProducts(Pageable pageable) throws RecordNotFoundException{
         Page<Products> products = productService.findAllProducts(pageable);
         return new ResponseEntity<Page<Products>>(products, HttpStatus.OK);
@@ -43,19 +39,17 @@ public class ProductController {
         return new ResponseEntity<Page<Products>>(products, HttpStatus.OK);
     }
     @PostMapping
-    @Secured("ROLE_ADMIN")
     public Products saveProduct(@RequestBody Products products){
         return productService.saveProducts(products);
     }
 
-    @PutMapping("/{Id}")
-    @Secured("ROLE_ADMIN")
-    private Products updateProduct(@RequestBody Products products, @PathVariable Long Id) throws RecordNotFoundException {
-        return productService.updateProducts(products, Id);
+    @PutMapping("/{id}")
+    private Products updateProduct(@RequestBody Products products, @PathVariable Long id) throws RecordNotFoundException {
+        return productService.updateProducts(products, id);
     }
     @DeleteMapping("/{id}")
-    @Secured("ROLE_ADMIN")
-    public void deleteProducts(@PathVariable Long id)throws RecordNotFoundException{
+    public ResponseEntity<?> deleteProducts(@PathVariable Long id)throws RecordNotFoundException{
         productService.deleteProducts(id);
+        return new ResponseEntity<>("The Product has been Deleted",HttpStatus.OK);
     }
 }
