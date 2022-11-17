@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
             products.setName(updateProducts.getName());
             products.setType(updateProducts.getType());
             products.setPrice(updateProducts.getPrice());
-            products.setDateOfPurchase(updateProducts.getDateOfPurchase());
+            //products.setDateOfPurchase(updateProducts.getDateOfPurchase());
             return repo.save(products);
         }).orElseThrow(() -> new RecordNotFoundException("NOT FOUND"));
     }
