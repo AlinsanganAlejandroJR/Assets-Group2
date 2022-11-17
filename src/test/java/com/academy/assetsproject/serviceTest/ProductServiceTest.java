@@ -18,11 +18,18 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.sql.Types;
+
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class ProductServiceTest {
@@ -32,6 +39,7 @@ public class ProductServiceTest {
 
     @InjectMocks
     private ProductServiceImpl productService = new ProductServiceImpl();
+
 
 
     Products furniture1 = new Products(1L, "Furniture1", 100, LocalDate.now(), CategoryType.FURNITURE);
@@ -60,7 +68,14 @@ public class ProductServiceTest {
             "WHEN findAllByCategory is executed with value FURNITURE" +
             "THEN result should return furniture data")
     void testFindByCategory() throws RecordNotFoundException {
-        //alex
+        // arrange
+        Mockito.when(productRepository.findAll(pageable1)).thenReturn(productsList);
+        // act
+        Page<Products> expectedResult = productService.findByCategory(CategoryType.FURNITURE, pageable1);
+        // assert
+        List<Products> expected = List.of(furniture1,furniture2);
+        Page<Products> expectedPage = new PageImpl<>(expected);
+        assertEquals(expectedPage, expectedResult);
     }
 
     @Test
@@ -68,7 +83,12 @@ public class ProductServiceTest {
             "WHEN findFindByProductID is executed" +
             "THEN result should return data")
     void testFindByProductID() throws RecordNotFoundException {
-        //vic
+        //vic arrange
+        Mockito.when(productRepository.findById(anyLong())).thenReturn(Optional.ofNullable(furniture2));
+        // act
+        Optional<Products> result = productService.findByProductById(2L);
+        // assert
+        assertEquals(furniture2,result.get());
     }
 
     @Test
@@ -76,11 +96,14 @@ public class ProductServiceTest {
             "WHEN saveProducts is executed" +
             "THEN result should save data")
     void testSaveProduct() throws RecordNotFoundException {
-        //ali
         //arrange
-        List<Products> expectedProducts = List.of(furniture1,furniture2);
+        Products expectedProducts = new Products(4L, "OfficeSupplies2", 400, LocalDate.now(), CategoryType.OFFICE_SUPPLIES);
+        Mockito.when(productService.saveProducts(any(Products.class))).thenReturn(expectedProducts);
         //act
-        //productService.saveProducts(new Products())
+        Products result = productService.saveProducts(expectedProducts);
+        verify(productRepository).save(expectedProducts);
+        //assert
+        assertEquals(result, expectedProducts);
     }
 
     @Test
