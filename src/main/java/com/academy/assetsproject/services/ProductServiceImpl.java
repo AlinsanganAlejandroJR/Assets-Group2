@@ -38,8 +38,7 @@ public class ProductServiceImpl implements ProductService {
         Optional<Products> productsOptional = repo.findById(id);
             if (productsOptional.isPresent()) {
                 return repo.findById(id).filter(products -> products.getId() == id);
-
-            } else throw new RecordNotFoundException("RECORD NOT FOUND");
+            } else throw new RecordNotFoundException("PRODUCT NOT FOUND");
     }
     @Override
     public Products saveProducts (Products products){
@@ -58,10 +57,10 @@ public class ProductServiceImpl implements ProductService {
     }
     @Override
     public void deleteProducts (Long id) throws RecordNotFoundException {
-        Optional<Products> products = repo.findById(id);
-        if (products.isEmpty()) {
-            repo.findById(id).stream().filter(products1 -> products1.getId() == id);
-        } else repo.delete(products.get());
+        Optional<Products> productsOptional = repo.findById(id);
+        if (productsOptional.isPresent()) {
+            repo.delete(productsOptional.get());
+        } else throw new RecordNotFoundException("PRODUCT ALREADY DELETED");
     }
 }
 
